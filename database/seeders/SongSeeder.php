@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Song;
 use Faker\Generator as Faker;
 
+
 class SongSeeder extends Seeder
 {
     /**
@@ -49,6 +50,17 @@ class SongSeeder extends Seeder
         $new_song->length = "03:21";
         $new_song->poster = "https://radiosound95.it/wp-content/uploads/2019/12/The-Weeknd-Blinding-Lights.jpg";
 
+        $new_song->save();
+
+
+        $new_song = new Song;
+
+        $new_song->title = $faker->words(2, true);
+        $new_song->album = $faker->words(2, true);
+        $new_song->author = $faker->sentence(3);
+        $new_song->editor = $faker->word();
+        $new_song->length = $faker->time();
+        $new_song->poster = "https://picsum.photos/200/300";
         $new_song->save();
     }
 }
