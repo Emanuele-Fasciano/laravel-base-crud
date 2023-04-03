@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string("title");
             $table->string("album");
             $table->string("author");
-            $table->string("editor");
+            $table->string("editor")->nullable();
             $table->time("length");
-            $table->string("poster");
+            $table->string("poster")->nullable();
             $table->timestamps();
         });
     }
