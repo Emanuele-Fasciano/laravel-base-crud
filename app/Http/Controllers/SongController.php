@@ -12,9 +12,15 @@ class SongController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $songs = Song::all();
+        // ricerca
+        if ($request->has("term")) {
+            $term = $request->get("term");
+            $songs = Song::where('name', 'LIKE', "%$term%");
+        } else {
+            $songs = Song::all();
+        }
 
         return view("songs.index", compact('songs'));
     }
@@ -38,12 +44,26 @@ class SongController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
-            'title' => 'required',
-            'album' => 'required',
-            'author' => 'required',
-            'length' => 'required'
-        ]);
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'album' => 'required|string',
+                'author' => 'required|string',
+                'length' => 'required',
+                'poster' => 'string'
+            ],
+            [
+                'title.required' => 'Il titolo della canzone è obbligatorio',
+                'title.string' => 'Il titolo della canzone deve essere una stringa',
+                'album.required' => "L' album è obbligatorio",
+                'album.string' => "Il titolo dell'album deve essere una stringa",
+                'author.required' => "L' autore è obbligatorio",
+                'author.string' => "Il nome dell' autore deve essere una stringa",
+                'length.required' => 'La lunghezza del brano è obbligatoria',
+                'poster.string' => "L' url del poster deve essere una stringa",
+
+            ]
+        );
 
         $data = $request->all();
 

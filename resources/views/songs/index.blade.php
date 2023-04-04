@@ -1,9 +1,23 @@
 @extends('layouts.app')
 
+@section('cdn')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+@endsection
+
 @section('title', 'Songs list')
 
 @section('content')
-    <a href="{{ route('songs.create') }}" class="btn btn-primary my-4 ">Add song</a>
+    <div class="row my-4">
+        <div class="col">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" name="term" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+        <div class="col">
+            <a href="{{ route('songs.create') }}" class="btn btn-primary ms-5">Add song</a>
+        </div>
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -12,7 +26,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
                 <th scope="col">Album</th>
-                <th scope="col">Details</th>
+                <th scope="col">Actions</th>
 
             </tr>
         </thead>
@@ -24,7 +38,9 @@
                     <td>{{ $song->title }}</td>
                     <td>{{ $song->author }}</td>
                     <td>{{ $song->album }}</td>
-                    <td><a href="{{ route('songs.show', $song) }}">More details</a></td>
+                    <td>
+                        <a href="{{ route('songs.show', $song) }}"><i class="bi bi-arrow-up-right-square"></i></a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>

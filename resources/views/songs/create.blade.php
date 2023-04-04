@@ -18,27 +18,27 @@
 
         <div class="col-4">
             <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control" name="title" id="title">
+            <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
         </div>
 
         <div class="col-4">
             <label for="album" class="form-label">Album</label>
-            <input type="text" class="form-control" name="album" id="album">
+            <input type="text" class="form-control" name="album" id="album" value="{{ old('album') }}">
         </div>
 
         <div class="col-4">
             <label for="author" class="form-label">Author</label>
-            <input type="text" class="form-control" name="author" id="author">
+            <input type="text" class="form-control" name="author" id="author" value="{{ old('author') }}">
         </div>
 
         <div class="col-4">
             <label for="editor" class="form-label">Editor</label>
-            <input type="text" class="form-control" name="editor" id="editor">
+            <input type="text" class="form-control" name="editor" id="editor" value="{{ old('editor') }}">
         </div>
 
         <div class="col-4">
             <label for="length" class="form-label">Length</label>
-            <input type="time" class="form-control" name="length" id="length">
+            <input type="time" class="form-control" name="length" id="length" value="{{ old('length') }}">
         </div>
 
         <div class="col-4">
