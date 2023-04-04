@@ -11,7 +11,7 @@
         <div class="col">
             <form class="d-flex" role="search">
                 <input class="form-control me-2" name="term" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
         </div>
         <div class="col">
@@ -40,6 +40,7 @@
                     <td>{{ $song->album }}</td>
                     <td>
                         <a href="{{ route('songs.show', $song) }}"><i class="bi bi-arrow-up-right-square"></i></a>
+                        <a href="{{ route('songs.edit', $song) }}"><i class="bi bi-pencil"></i></a>
                     </td>
                 </tr>
             @endforeach

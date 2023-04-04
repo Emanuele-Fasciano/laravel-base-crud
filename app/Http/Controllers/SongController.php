@@ -49,6 +49,7 @@ class SongController extends Controller
                 'title' => 'required|string',
                 'album' => 'required|string',
                 'author' => 'required|string',
+                'editor' => 'string',
                 'length' => 'required',
                 'poster' => 'string'
             ],
@@ -59,6 +60,7 @@ class SongController extends Controller
                 'album.string' => "Il titolo dell'album deve essere una stringa",
                 'author.required' => "L' autore è obbligatorio",
                 'author.string' => "Il nome dell' autore deve essere una stringa",
+                'editor.string' => "La casa editrice deve essere una stringa",
                 'length.required' => 'La lunghezza del brano è obbligatoria',
                 'poster.string' => "L' url del poster deve essere una stringa",
 
@@ -93,9 +95,9 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Song $song)
     {
-        //
+        return view('songs.edit', compact('song'));
     }
 
     /**
@@ -105,9 +107,35 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Song $song)
     {
-        //
+        $request->validate(
+            [
+                'title' => 'required|string',
+                'album' => 'required|string',
+                'author' => 'required|string',
+                'editor' => 'string',
+                'length' => 'required',
+                'poster' => 'string'
+            ],
+            [
+                'title.required' => 'Il titolo della canzone è obbligatorio',
+                'title.string' => 'Il titolo della canzone deve essere una stringa',
+                'album.required' => "L' album è obbligatorio",
+                'album.string' => "Il titolo dell'album deve essere una stringa",
+                'author.required' => "L' autore è obbligatorio",
+                'author.string' => "Il nome dell' autore deve essere una stringa",
+                'editor.string' => "La casa editrice deve essere una stringa",
+                'length.required' => 'La lunghezza del brano è obbligatoria',
+                'poster.string' => "L' url del poster deve essere una stringa",
+
+            ]
+        );
+
+        $data = $request->all();
+        $song->update($data);
+
+        return redirect()->route('songs.show', $song);
     }
 
     /**
