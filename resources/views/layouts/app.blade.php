@@ -16,6 +16,8 @@
         <h1 class="my-4">@yield('title')</h1>
         @yield('content')
     </div>
+
+    @yield('modal')
 </body>
 
 </html>

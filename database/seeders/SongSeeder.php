@@ -52,15 +52,16 @@ class SongSeeder extends Seeder
 
         $new_song->save();
 
+        for ($i = 0; $i < 10; $i++) {
+            $new_song = new Song;
 
-        $new_song = new Song;
-
-        $new_song->title = $faker->words(2, true);
-        $new_song->album = $faker->words(2, true);
-        $new_song->author = $faker->sentence(3);
-        $new_song->editor = $faker->word();
-        $new_song->length = $faker->time();
-        $new_song->poster = "https://picsum.photos/200/300";
-        $new_song->save();
+            $new_song->title = $faker->words(2, true);
+            $new_song->album = $faker->words(2, true);
+            $new_song->author = $faker->sentence(3);
+            $new_song->editor = $faker->word();
+            $new_song->length = $faker->time();
+            $new_song->poster = "https://picsum.photos/200/300";
+            $new_song->save();
+        }
     }
 }

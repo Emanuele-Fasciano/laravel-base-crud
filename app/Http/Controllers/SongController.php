@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Song;
 use Illuminate\Http\Request;
 
+// importo Validator per la centralizzazione del validate
+use Illuminate\Support\Facades\Validator;
+
 class SongController extends Controller
 {
     /**
@@ -44,30 +47,7 @@ class SongController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate(
-            [
-                'title' => 'required|string',
-                'album' => 'required|string',
-                'author' => 'required|string',
-                'editor' => 'string',
-                'length' => 'required',
-                'poster' => 'string'
-            ],
-            [
-                'title.required' => 'Il titolo della canzone è obbligatorio',
-                'title.string' => 'Il titolo della canzone deve essere una stringa',
-                'album.required' => "L' album è obbligatorio",
-                'album.string' => "Il titolo dell'album deve essere una stringa",
-                'author.required' => "L' autore è obbligatorio",
-                'author.string' => "Il nome dell' autore deve essere una stringa",
-                'editor.string' => "La casa editrice deve essere una stringa",
-                'length.required' => 'La lunghezza del brano è obbligatoria',
-                'poster.string' => "L' url del poster deve essere una stringa",
-
-            ]
-        );
-
-        $data = $request->all();
+        $data = $this->validation($request->all());
 
         $song = new Song;
 
@@ -109,30 +89,8 @@ class SongController extends Controller
      */
     public function update(Request $request, Song $song)
     {
-        $request->validate(
-            [
-                'title' => 'required|string',
-                'album' => 'required|string',
-                'author' => 'required|string',
-                'editor' => 'string',
-                'length' => 'required',
-                'poster' => 'string'
-            ],
-            [
-                'title.required' => 'Il titolo della canzone è obbligatorio',
-                'title.string' => 'Il titolo della canzone deve essere una stringa',
-                'album.required' => "L' album è obbligatorio",
-                'album.string' => "Il titolo dell'album deve essere una stringa",
-                'author.required' => "L' autore è obbligatorio",
-                'author.string' => "Il nome dell' autore deve essere una stringa",
-                'editor.string' => "La casa editrice deve essere una stringa",
-                'length.required' => 'La lunghezza del brano è obbligatoria',
-                'poster.string' => "L' url del poster deve essere una stringa",
 
-            ]
-        );
-
-        $data = $request->all();
+        $data = $this->validation($request->all());
         $song->update($data);
 
         return redirect()->route('songs.show', $song);
@@ -144,8 +102,36 @@ class SongController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Song $song)
     {
-        //
+        $song->delete();
+
+        return redirect()->route("songs.index");
+    }
+
+    // CENTRALIZZARE IL VALIDATE
+    private function validation($data)
+    {
+
+        return Validator::make(
+            $data,
+            [
+                'title' => 'required',
+                'album' => 'required',
+                'author' => 'required',
+                'editor' => 'string',
+                'length' => 'required',
+                'poster' => 'string'
+            ],
+            [
+                'title.required' => 'Il titolo della canzone è obbligatorio',
+                'album.required' => "L' album è obbligatorio",
+                'author.required' => "L' autore è obbligatorio",
+                'editor.string' => "La casa editrice deve essere una stringa",
+                'length.required' => 'La lunghezza del brano è obbligatoria',
+                'poster.string' => "L' url del poster deve essere una stringa",
+
+            ]
+        )->validate();
     }
 }
