@@ -18,12 +18,13 @@ class SongController extends Controller
     public function index(Request $request)
     {
         // ricerca
-        if ($request->has("term")) {
-            $term = $request->get("term");
-            $songs = Song::where('name', 'LIKE', "%$term%");
+        if ($request->has('term')) {
+            $term = $request->get('term');
+            $songs = Song::where('title', 'LIKE', "%$term%")->paginate(10);
         } else {
-            $songs = Song::all();
+            $songs = Song::paginate(10);
         }
+
 
         return view("songs.index", compact('songs'));
     }

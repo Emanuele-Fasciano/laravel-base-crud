@@ -10,7 +10,8 @@
     <div class="row my-4">
         <div class="col">
             <form class="d-flex" role="search">
-                <input class="form-control me-2" name="term" type="search" placeholder="Search" aria-label="Search">
+                <input class="form-control me-2" name="term" type="search" placeholder="Search by title"
+                    aria-label="Search">
                 <button class="btn btn-outline-primary" type="submit">Search</button>
             </form>
         </div>
@@ -81,4 +82,6 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $songs->links('pagination::bootstrap-5') }}
 @endsection
